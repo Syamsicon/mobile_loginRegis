@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  // Hitam-Putih theme
   static const Color background = Colors.white;
   static const Color surface = Colors.white;
   static const Color primary = Colors.black;
@@ -9,3 +10,4 @@ class AppColors {
   static const Color border = Colors.black;
   static const Color error = Color(0xFFD32F2F);
 }
+

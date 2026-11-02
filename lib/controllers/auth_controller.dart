@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../../app/routes/app_routes.dart';
+import '../routes/app_routes.dart';
 
 class AuthController extends GetxController {
   // Form Keys
@@ -12,19 +12,26 @@ class AuthController extends GetxController {
   final loginNameController = TextEditingController();
   final loginPasswordController = TextEditingController();
 
+  // Getter for backwards compatibility if needed
   TextEditingController get loginEmailController => loginNameController;
 
   // Register Controllers
   final registerNameController = TextEditingController();
   final registerEmailController = TextEditingController();
   final registerPasswordController = TextEditingController();
+  final registerConfirmPasswordController = TextEditingController();
 
-  // Obs
+  // Observables
   final isPasswordHidden = true.obs;
+  final isConfirmPasswordHidden = true.obs;
   final isLoading = false.obs;
 
   void togglePasswordVisibility() {
     isPasswordHidden.value = !isPasswordHidden.value;
+  }
+
+  void toggleConfirmPasswordVisibility() {
+    isConfirmPasswordHidden.value = !isConfirmPasswordHidden.value;
   }
 
   void login() async {
@@ -44,7 +51,16 @@ class AuthController extends GetxController {
 
   void register() async {
     if (registerFormKey.currentState?.validate() ?? false) {
-      
+      if (registerPasswordController.text != registerConfirmPasswordController.text) {
+        Get.snackbar(
+          'Error',
+          'Konfirmasi password tidak cocok',
+          snackPosition: SnackPosition.BOTTOM,
+          margin: const EdgeInsets.all(16),
+          borderRadius: 8,
+        );
+        return;
+      }
 
       isLoading.value = true;
       await Future.delayed(const Duration(milliseconds: 500));
@@ -79,6 +95,8 @@ class AuthController extends GetxController {
     registerNameController.dispose();
     registerEmailController.dispose();
     registerPasswordController.dispose();
+    registerConfirmPasswordController.dispose();
     super.onClose();
   }
 }
+

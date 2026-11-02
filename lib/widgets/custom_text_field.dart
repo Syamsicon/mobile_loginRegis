@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../app/theme/app_colors.dart';
-import '../../app/theme/app_text_styles.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
   final String? label;
@@ -85,3 +85,4 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
+
